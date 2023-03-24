@@ -1,0 +1,57 @@
+blacklist_mode: "off"
+ip: 127.0.0.1
+lures:
+- hostname: ""
+  path: ""
+  redirect_url: ""
+  phishlet: 
+  template: ""
+  ua_filter: ""
+  info: ""
+  og_title: ""
+  og_desc: ""
+  og_image: ""
+  og_url: ""
+redirect_key: np
+redirect_url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+server: localhost
+site_domains:
+  airbnb: ""
+  amazon: ""
+  blockchain: ""
+  booking: ""
+  carforyou: ""
+  citrix: ""
+  cloudflare: ""
+  coinbase: ""
+  dropbox: ""
+  facebook: ""
+  freelancer: ""
+  github: ""
+  google: ""
+  google2: ""
+  icloud: ""
+  icloud2021: ""
+  instagram: ""
+  linkedin: ""
+  o365: ""
+  okta: ""
+  onelogin: ""
+  outlook: ""
+  paypal: ""
+  protonmail: ""
+  razer: ""
+  reddit: ""
+  stackoverflow: ""
+  tiktok: ""
+  twitter: ""
+  twitter-mobile: ""
+  upwork: ""
+  vpbank: ""
+  vrbo: ""
+  wordpress:
+    org: ""
+  yahoo: ""
+sites_enabled: ""
+verification_key: ok
+verification_token: amax

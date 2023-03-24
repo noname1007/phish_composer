@@ -1,0 +1,19 @@
+{
+  "admin_server": {
+    "api_key_init": "a9024cebd6ab2d3f4bdb66bb5bfdbae002743ca626c779da2987630304f50247",
+    "cert_path": "/app/admin.crt",
+    "key_path": "/app/admin.key",
+    "listen_url": "0.0.0.0:3333",
+    "use_tls": true
+  },
+  "contact_address": "",
+  "db_name": "sqlite3",
+  "db_path": "gophish.db",
+  "migrations_prefix": "db/db_",
+  "phish_server": {
+    "cert_path": "/app/phish.crt",
+    "key_path": "/app/phish.key",
+    "listen_url": "0.0.0.0:8080",
+    "use_tls": false
+  }
+}
